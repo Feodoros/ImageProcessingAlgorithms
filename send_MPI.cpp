@@ -44,6 +44,7 @@ int main() {
     }
   }
   else {
+	// проверяем входные данные
     MPI_Probe(root, Tag, MPI_COMM_WORLD, &status);
     MPI_Get_count(&status, MPI_DOUBLE, &n);
     

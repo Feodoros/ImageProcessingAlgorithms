@@ -1,11 +1,9 @@
 from mpi4py import MPI
 from PIL import Image
 
-
-
 comm = MPI.COMM_WORLD
-size = comm.size #number of processors
-rank = comm.rank #calling process rank
+size = comm.size # определение числа процессов в области связи
+rank = comm.rank # определение номера процесса
 root = 0
 if rank == 0:
     print "rank = 0 \n"
@@ -21,9 +19,9 @@ else:
     print "rank != 0"
     chunks = None
 
-data = comm.scatter(chunks, root)
-#do some pixel manipulations
-data = comm.gather(data, root)
+data = comm.scatter(chunks, root) # рассылка
+# some pixel manipulations
+data = comm.gather(data, root) # прием
 for i in range(len(pix)):
     pix[i] = tuple(data[0][i])
 image = Image.new("RGB", (width, height))

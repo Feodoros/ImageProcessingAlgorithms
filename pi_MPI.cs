@@ -20,8 +20,10 @@ class Pi
                 if (x * x + y * y <= 1.0)
                     ++dartsInCircle;
             }
-
+			// объединение элементов входного буфера каждого процесса в группе 
+			// и возврат объединенного значение в выходной буфер
             int totalDartsInCircle = comm.Reduce(dartsInCircle, Operation<int>.Add, 0);
+			// если номер процесса == 0, то выводим на экран что вычислили
             if (comm.Rank == 0)
             {
                 Console.WriteLine("Pi is approximately {0:F15}.",
